@@ -49,26 +49,26 @@ mqttClient.on('message', (topic, message) => {
   });
 });
 
-app.use((req, res, next) => {
-  req.mqttClient = mqttClient;
-  next();
-});
+// app.use((req, res, next) => {
+//   req.mqttClient = mqttClient;
+//   next();
+// });
 
-app.post('mqtt-message', (req, res) => {
-  const { data } = req.body;
+// app.post('mqtt-message', (req, res) => {
+//   const { data } = req.body;
 
-  const newData = new Data({ data });
+//   const newData = new Data({ data });
 
-  newData.save((err, savedData) => {
-    if (err) {
-      console.log(`Error while saving to DB: ${err.message}`);
-      res.status(500).json({ error: err.message });
-    } else {
-      console.log(`Data saved to DB: ${savedData}`);
-      res.status(200).json({ message: 'Data saved successfully' });
-    }
-  });
-});
+//   newData.save((err, savedData) => {
+//     if (err) {
+//       console.log(`Error while saving to DB: ${err.message}`);
+//       res.status(500).json({ error: err.message });
+//     } else {
+//       console.log(`Data saved to DB: ${savedData}`);
+//       res.status(200).json({ message: 'Data saved successfully' });
+//     }
+//   });
+// });
   
 
 // app.use(express.static(path.join(__dirname, 'images')));
