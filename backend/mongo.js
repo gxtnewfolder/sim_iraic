@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const app = express();
 app.use(express.json());
 
-const mongoURI = 'mongodb://localhost:27017/iot';
+const mongoURI = 'mongodb://admin:1234@ac-cezqnun-shard-00-00.cooyb5m.mongodb.net:27017,ac-cezqnun-shard-00-01.cooyb5m.mongodb.net:27017,ac-cezqnun-shard-00-02.cooyb5m.mongodb.net:27017/?replicaSet=atlas-c59v5h-shard-0&ssl=true&authSource=admin';
 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
