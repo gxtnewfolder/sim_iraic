@@ -14,9 +14,10 @@ client.on_connect = on_connect
 client.connect("mqtt-dashboard.com", 1883, 60)
 
 # Publish a message
-a = input("Enter your message: ")
-if a == "Hello":
-    client.publish("test/kmutt/iot", "Hello World!")
+while(True):
+    a = input("Enter your message: ")
+    if a:
+        client.publish("test/kmutt/iot", a)
 
 # keep the client running to process callbacks and messages
 client.loop_forever()
