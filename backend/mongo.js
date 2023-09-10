@@ -30,7 +30,7 @@ const mqttClient = mqtt.connect('mqtt://mqtt-dashboard.com:1883');
 
 mqttClient.on('connect', () => {
     console.log('MQTT client connected');
-    mqttClient.subscribe('test/kmutt/iot');
+    mqttClient.subscribe('simkmutt/iot');
 });
 
 app.use((req, res, next) => {
@@ -54,7 +54,7 @@ app.post('/mqtt-message', (req, res) => {
     });
 });
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
