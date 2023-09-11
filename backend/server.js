@@ -1,80 +1,84 @@
 const express = require('express');
+const logger = require('morgan');
 const mqtt = require('mqtt');
 const mongoose = require('mongoose');
 
-const path = require('path');
 const app = express();
+app.use(express.json());
 
-const port = process.env.PORT || 3001;
+app.use(logger('dev'));
 
-const mongoURI = 'mongodb+srv://admin:1234@cluster0.cooyb5m.mongodb.net/?retryWrites=true&w=majority';
+mongoose.Promise = global.Promise;
+
+const mongoURI = 'mongodb://admin:1234@ac-cezqnun-shard-00-00.cooyb5m.mongodb.net:27017,ac-cezqnun-shard-00-01.cooyb5m.mongodb.net:27017,ac-cezqnun-shard-00-02.cooyb5m.mongodb.net:27017/?replicaSet=atlas-c59v5h-shard-0&ssl=true&authSource=admin';
+
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+        .then(() => console.log('DB connected successfully!'))
+        .catch((err) => console.error(err));
 
-const db = mongoose.connection;
-
-db.on('error', (err) => {
-  console.log(`Error while connecting to DB: ${err.message}`);
-});
-
-db.once('open', () => {
-  console.log('DB connected successfully!');
-});
-
+// Create a schema Name of location and location
 const dataSchema = new mongoose.Schema({
-  timestamp: { type: Date, default: Date.now },
-  data: String
+    name: String,
+    location: String,
+    timestamp: { type: Date, default: Date.now}
+});
+        
+const Seed = mongoose.model('Data', dataSchema);
+
+// Get all data
+app.get('/', (req, res) => {
+    Seed.find()
+        .then((result)=>{
+            res.status(200).json(result);
+        })
+        .catch((error)=>{
+            res.status(500).json(error)    
+        })
 });
 
-const Data = mongoose.model('Data', dataSchema);
+// Post data to database
+app.post('/', (req, res) => {
+    Seed.create(req.body)
+        .then((result)=>{
+            res.status(201).json(result);
+        })
+        .catch((error)=>{
+            res.status(500).json(error)    
+        })
+});
+
 
 const mqttClient = mqtt.connect('mqtt://mqtt-dashboard.com:1883');
 
 mqttClient.on('connect', () => {
-  console.log('MQTT client connected');
-  mqttClient.subscribe('test/kmutt/iot');
+    console.log('MQTT client connected');
+    mqttClient.subscribe('test/kmutt/iot');
 });
 
-mqttClient.on('message', (topic, message) => {
-  const data = message.toString();
-  console.log('Received MQTT message: ' + data);
-
-  const newData = new Data({ data });
-
-  newData.save((err, savedData) => {
-    if (err) {
-      console.log(`Error while saving to DB: ${err.message}`);
-    } else {
-      console.log(`Data saved to DB: ${savedData}`);
-    }
-  });
+app.use((req, res, next) => {
+    req.mqttClient = mqttClient;
+    next();
 });
 
-// app.use((req, res, next) => {
-//   req.mqttClient = mqttClient;
-//   next();
+
+// app.post('/mqtt-message', (req, res) => {
+//     const { data } = req.body;
+
+//     const newData = new Data({ data });
+
+//     newData.save((err, savedData) => {
+//         if (err) {
+//             console.log(`Error while saving to DB: ${err.message}`);
+//             res.status(500).json({ error: err.message });
+//         } else {
+//             console.log(`Data saved to DB: ${savedData}`);
+//             res.status(200).json({ message: 'Data saved successfully' });
+//         }
+//     });
 // });
 
-// app.post('mqtt-message', (req, res) => {
-//   const { data } = req.body;
+const port = process.env.PORT || 8000;
 
-//   const newData = new Data({ data });
-
-//   newData.save((err, savedData) => {
-//     if (err) {
-//       console.log(`Error while saving to DB: ${err.message}`);
-//       res.status(500).json({ error: err.message });
-//     } else {
-//       console.log(`Data saved to DB: ${savedData}`);
-//       res.status(200).json({ message: 'Data saved successfully' });
-//     }
-//   });
-// });
-  
-
-// app.use(express.static(path.join(__dirname, 'images')));
-
-
-// Start the server
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+    console.log(`Server listening on port ${port}`);
 });
