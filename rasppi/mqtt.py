@@ -17,7 +17,7 @@ client.connect("mqtt-dashboard.com", 1883, 60)
 while(True):
     a = input("Enter your message: ")
     if a:
-        client.publish("test/kmutt/iot", a)
+        client.publish("simkmutt/iot", a)
 
 # keep the client running to process callbacks and messages
 client.loop_forever()
