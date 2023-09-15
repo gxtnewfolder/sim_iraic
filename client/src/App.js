@@ -10,12 +10,31 @@ import FormEditProduct from './components/FormEditProduct';
 
 import TestRedux1 from './components/TestRedux1';
 import TestRedux2 from './components/TestRedux2';
+
 import Register from './components/pages/auth/Register';
 import Login from './components/pages/auth/Login';
+import { currentUser } from './functions/auth';
 
 import HomePageAdmin from './components/pages/admin/HomePageAdmin';
+import AdminRoute from './routes/AdminRoute';
+
+import { useDispatch } from 'react-redux';
+import { login } from './store/userSlice';
 
 function App() {
+  const dispatch = useDispatch();
+  const idToken = localStorage.getItem('Token');
+  currentUser(idToken)
+    .then((res) => {
+      console.log(res);
+      dispatch(login({
+        name: res.data.name,
+        role: res.data.role,
+        token: idToken
+      }));
+    }).catch((err) => {
+      console.log(err);
+    });
   return (
     <BrowserRouter>
       <>
@@ -24,22 +43,27 @@ function App() {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-        </Routes>
+        
+
         {/* Admin */}
-        <div className="app">
-          <SideBar />
-          <main className="content">
-            <HeaderBar />
-            <div className="content_body">
-              <Box m="20px">
-                <Routes>
-                  <Route path="/admin/viewtable" element={<FormProduct />} />
-                  <Route path="/edit/:id" element={<FormEditProduct />} />
-                </Routes>
-              </Box>
-            </div>
-          </main>
-        </div>
+        <Route path="/admin/index" element={
+          <AdminRoute>
+            <HomePageAdmin />
+          </AdminRoute>
+        } />
+
+        <Route path="/admin/viewtable" element={
+          <AdminRoute>
+            <FormProduct />
+          </AdminRoute>
+        } />
+        <Route path="/edit/:id" element={
+          <AdminRoute>
+            <FormEditProduct />
+          </AdminRoute>
+        } />
+        </Routes>
+
         {/* <TestRedux1 />
         <hr />
         <TestRedux2 /> */}

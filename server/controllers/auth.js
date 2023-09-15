@@ -46,7 +46,8 @@ exports.login = async (req, res) => {
             // 2. Payload
             var payload = {
                 user: {
-                    name: user.name
+                    name: user.name,
+                    role: user.role
                 }
             }
             // 3. Generate
@@ -58,6 +59,19 @@ exports.login = async (req, res) => {
             return res.status(400).send('User not found!!!')
         }
 
+    } catch (err) {
+        //code
+        console.log(err)
+        res.status(500).send('Server Error')
+    }
+}
+
+exports.currentUser = async (req, res) => {
+    try {
+        // code
+        console.log(req.user)
+        const user = await User.findOne({ name: req.user.name }).select('-password').exec()
+        res.send(user)
     } catch (err) {
         //code
         console.log(err)

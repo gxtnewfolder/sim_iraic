@@ -9,9 +9,9 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    login: (state) => {
+    login: (state, action) => {
       state.value = 'sim login'
-      state.user= 'hello sim'
+      state.user= action.payload
     },
     logout: (state) => {
       state.value = 'sim logout'
