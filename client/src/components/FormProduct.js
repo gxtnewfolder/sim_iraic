@@ -69,7 +69,7 @@ const FormProduct = () => {
   return (
     <div>
       {/* HTML */}
-      FormProduct
+      FormData
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
           <TextField

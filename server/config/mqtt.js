@@ -27,7 +27,7 @@ client.on('message', (topic, message) => {
         // You can now process or save the image data as needed
         // For example, save it as an image file:
         const timestamp = Date.now();
-        const filename = `uploads/SIM-${timestamp}.jpg`;
+        const filename = `uploads/SIM-1.jpg`;
         fs.writeFileSync(filename, imageBuffer);
         console.log(`Image saved as ${filename}`);
     }

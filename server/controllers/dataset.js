@@ -27,7 +27,6 @@ exports.list = async (req, res) => {
 exports.create = async (req, res) => {
     try {
         // code
-
         var data = req.body
         if (req.file) {
             data.file = req.file.filename

@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 const morgan = require('morgan');
 const cors = require('cors');
@@ -23,6 +24,8 @@ connectMQTT();
 app.use(morgan('dev'));
 app.use(cors());
 app.use(bodyParser.json({ limit: '10mb' }));
+
+app.use(express.static(path.join(__dirname, 'uploads')));
 
 // Routes 1
 // app.get('/', (req, res) => {
