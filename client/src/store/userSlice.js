@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: "sim kmutt",
+  value: "tam korat 5555+",
   user:[]
 };
 
@@ -9,12 +9,13 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    login: (state, action) => {
-      state.value = 'sim login'
+    login: (state,action) => {
+      state.value = 'tam login'
       state.user= action.payload
     },
     logout: (state) => {
-      state.value = 'sim logout'
+      state.user = []
+      localStorage.clear()
     },
     incrementByAmount: (state, action) => {
       state.value += action.payload;

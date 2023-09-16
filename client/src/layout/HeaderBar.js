@@ -7,8 +7,21 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
 
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../store/userSlice";
+import { useNavigate } from "react-router-dom";
+
 const HeaderBar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    handleClose();
+    navigate("/");
+  };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -55,9 +68,9 @@ const HeaderBar = () => {
             <Link to="#" className="menu-bars">
               <MenuItem onClick={handleClose}>Profile</MenuItem>
             </Link>
-            <Link to="#" className="menu-bars">
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-            </Link>
+           
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+           
           </Menu>
         </IconButton>
       </Box>

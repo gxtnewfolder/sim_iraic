@@ -1,7 +1,7 @@
-import React from 'react'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+
+import { read, update } from '../functions/product'
 
 const FormEditProduct = () => {
     const params = useParams()
@@ -10,21 +10,19 @@ const FormEditProduct = () => {
 
     const [data, setData] = useState({
         name: '',
-        detail: '',
-        price: ''
+        location: '',
     })
-
-    const [fileold, setFileold] = useState()
+    const [fileold, setFileOld] = useState()
 
     useEffect(() => {
         loadData(params.id)
     }, [])
 
     const loadData = async (id) => {
-        return await axios.get('http://localhost:8000/api/product/' + id)
+        read(id)
             .then((res) => {
                 setData(res.data)
-                setFileold(res.data.file)
+                setFileOld(res.data.file)
             })
     }
     const handleChange = (e) => {
@@ -49,7 +47,7 @@ const FormEditProduct = () => {
             formWithImageData.append(key, data[key])
         }
         formWithImageData.append('fileold', fileold)
-        return await axios.put('http://localhost:8000/api/product/' + params.id, formWithImageData)
+        update(params.id, formWithImageData)
             .then(res => {
                 console.log(res)
                 navigate('/')
@@ -58,9 +56,9 @@ const FormEditProduct = () => {
     }
 
     return (
-        <div>FormEditProduct
+        <div>FormEditData
 
-<form onSubmit={handleSubmit} encType='multipart/form-data'>
+            <form onSubmit={handleSubmit} encType='multipart/form-data'>
                 <input
                     type='text'
                     name='name'
@@ -70,21 +68,15 @@ const FormEditProduct = () => {
                 /> <br />
 
                 <input type='text'
-                    name='detail'
-                    placeholder='detail'
-                    value={data.detail}
+                    name='location'
+                    placeholder='location'
+                    value={data.location}
                     onChange={e => handleChange(e)}
                 /><br />
                 <input type='file'
                     name='file'
                     onChange={e => handleChange(e)}
                 /><br />
-                <input
-                    type='text'
-                    name='price'
-                    placeholder='price'
-                    value={data.price}
-                    onChange={e => handleChange(e)} />
                 <br />
                 <button>Submit</button>
             </form>

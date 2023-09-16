@@ -26,7 +26,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        SIM KMUTT
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -43,16 +43,17 @@ export default function Register() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    const sim = {
+    const tam = {
       name: data.get("name"),
       password: data.get("password"),
     };
 
-    register(sim)
-    .then(res=>{
-        console.log(res)
-        alert(res.data)
-    }).catch(err=>console.log(err))
+    register(tam)
+      .then((res) => {
+        console.log(res);
+        alert(res.data);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -65,8 +66,9 @@ export default function Register() {
           sm={4}
           md={7}
           sx={{
-            // backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-            backgroundImage: "url(/assets/17361.jpg)",
+            backgroundImage:
+              "url(https://source.unsplash.com/random?wallpapers)",
+            //backgroundImage: "url(/assets/17361.jpg)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
@@ -90,7 +92,7 @@ export default function Register() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              REGISTER
             </Typography>
             <Box
               component="form"
@@ -127,18 +129,18 @@ export default function Register() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                Sign Up
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  {/* <Link href="#" variant="body2">
                     Forgot password?
-                  </Link>
+                  </Link> */}
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  {/* <Link href="#" variant="body2">
                     {"Don't have an account? Sign Up"}
-                  </Link>
+                  </Link> */}
                 </Grid>
               </Grid>
               <Copyright sx={{ mt: 5 }} />

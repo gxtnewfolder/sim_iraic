@@ -1,12 +1,12 @@
-const Product = require('../models/product');
+const Dataset = require('../models/Data');
 const fs = require('fs');
 
 exports.read =  async (req, res) => {
     try {
         // code
         const id = req.params.id;
-        const producted = await Product.findOne({ _id: id }).exec();
-        res.send(producted);
+        const Dataseted = await Dataset.findOne({ _id: id }).exec();
+        res.send(Dataseted);
     } catch (err) {
         console.log(err);
         res.status(500).send('Server error');
@@ -16,8 +16,8 @@ exports.read =  async (req, res) => {
 exports.list = async (req, res) => {
     try {
         // code
-        const producted = await Product.find({}).exec();
-        res.send(producted);
+        const Dataseted = await Dataset.find({}).exec();
+        res.send(Dataseted);
     } catch (err) {
         console.log(err);
         res.status(500).send('Server error');
@@ -31,8 +31,8 @@ exports.create = async (req, res) => {
         if (req.file) {
             data.file = req.file.filename;
         }
-        const producted = await Product(data).save();
-        console.log(producted);
+        const Dataseted = await Dataset(data).save();
+        console.log(Dataseted);
     } catch (err) {
         console.log(err);
         res.status(500).send('Server error');
@@ -54,7 +54,7 @@ exports.update = async (req, res) => {
                 }
             })
         }
-        const updated = await Product
+        const updated = await Dataset
             .findOneAndUpdate({ _id: id }, newData, { new: true })
             .exec()
         res.send(updated)
@@ -68,7 +68,7 @@ exports.remove = async (req, res) => {
     try {
         // code
         const id = req.params.id;
-        const removed = await Product.findOneAndDelete({ _id: id }).exec();
+        const removed = await Dataset.findOneAndDelete({ _id: id }).exec();
         if(removed?.file){
             await fs.unlinkSync('./uploads/' + removed.file, (err) => {
                 if (err) {

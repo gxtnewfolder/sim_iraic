@@ -1,4 +1,4 @@
-import * as React from "react";
+import react, { useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -19,6 +19,8 @@ import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { login as loginRedux } from "../../../store/userSlice";
+
+
 
 function Copyright(props) {
   return (
@@ -43,37 +45,44 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
-  const navigate = useNavigate();
+  const navi = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    const sim = {
+    const tam = {
       name: data.get("name"),
       password: data.get("password"),
     };
 
-    login(sim)
-    .then(res=>{
-        console.log(res)
-        dispatch(loginRedux({
-          name:res.data.payload.user.name,
-          role:res.data.payload.user.role,
-          token:res.data.token
-        }))
-        localStorage.setItem('token',res.data.token)
-        // alert(res.data)
-        // roleRedirect(res.data.payload.user.role)
-    }).catch(err=>console.log(err))
+    login(tam)
+      .then((res) => {
+        console.log(res);
+        alert(res.data);
+        dispatch(
+          loginRedux({
+            name: res.data.payload.user.name,
+            role: res.data.payload.user.role,
+            token: res.data.token,
+          })
+        );
+        localStorage.setItem("token", res.data.token);
+        roleRedirects(res.data.payload.user.role);
+      })
+      .catch((err) => console.log(err));
   };
 
-  const roleRedirect = (role) => {
+  const roleRedirects = (role) => {
     if (role === "admin") {
-      navigate("/admin/index");
+      navi("/admin/index");
     } else {
-      navigate("/user/viewtable");
+      navi("/user/index");
     }
   };
 
@@ -87,8 +96,9 @@ export default function Login() {
           sm={4}
           md={7}
           sx={{
-            // backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-            backgroundImage: "url(/assets/17361.jpg)",
+            backgroundImage:
+              "url(https://source.unsplash.com/random?wallpapers)",
+            // backgroundImage: "url(/assets/17361.jpg)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
@@ -143,6 +153,7 @@ export default function Login() {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
+
               <Button
                 type="submit"
                 fullWidth
@@ -151,6 +162,7 @@ export default function Login() {
               >
                 Sign In
               </Button>
+
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">

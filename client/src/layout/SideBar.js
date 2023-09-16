@@ -4,7 +4,7 @@ import {
   Menu,
   MenuItem,
   SubMenu,
-  // SidebarFooter,
+  SidebarFooter,
 } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme, Badge } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -12,9 +12,9 @@ import { Link } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-// import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-// import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
+import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import TableViewIcon from '@mui/icons-material/TableView';
@@ -35,9 +35,10 @@ const SideBar = () => {
         toggled={toggled}
         onBackdropClick={() => setToggled(false)}
         onBreakPoint={setBroken}
-        // image="/assets/17372.jpg"
+        image="/assets/17361.jpg"
         breakPoint="md"
         style={{ height: "100%" }}
+
       >
         <div
           style={{ display: "flex", flexDirection: "column", height: "100%" }}
@@ -59,7 +60,7 @@ const SideBar = () => {
                     alignItems="center"
                     ml="15px"
                   >
-                    <Typography>SIM Detection</Typography>
+                    <Typography>ROITAI APP</Typography>
                     <IconButton onClick={() => setisCollapsed(!isCollapsed)}>
                       <MenuOutlinedIcon />
                     </IconButton>
@@ -68,6 +69,12 @@ const SideBar = () => {
               </MenuItem>
               {!isCollapsed && (
                 <Box mb="25px">
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                  </Box>
                   <Box textAlign="center">
                     <Typography sx={{ m: "10px 0 0 0" }}>SIM</Typography>
                     <Typography>DETECTION </Typography>
@@ -75,7 +82,7 @@ const SideBar = () => {
                 </Box>
               )}
 
-              <Link to="/admin" className="menu-bars">
+              <Link to="/admin/index" className="menu-bars">
                 <MenuItem icon={<HomeOutlinedIcon />}>Dashboard</MenuItem>
               </Link>
 
@@ -120,6 +127,7 @@ const SideBar = () => {
             </div>
 
             <Menu>
+              {/* <MenuItem icon={<CalendarTodayOutlinedIcon />}>Calendar</MenuItem> */}
               <MenuItem icon={<ReceiptOutlinedIcon />}>Documentation</MenuItem>
             </Menu>
           </div>

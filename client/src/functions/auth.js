@@ -7,12 +7,14 @@ export const login = async (data) =>
   await axios.post(process.env.REACT_APP_API + "/login", data);
 
 export const currentUser = async (authtoken) =>
-  await axios.post(
-    process.env.REACT_APP_API + "/current-user",
-    {},
-    {
-      headers: {
-        authtoken,
-      },
+  await axios.post(process.env.REACT_APP_API + "/current-user", {},{
+    headers:{
+      authtoken
     }
-  );
+  });
+export const currentAdmin = async (authtoken) =>
+  await axios.post(process.env.REACT_APP_API + "/current-admin", {},{
+    headers:{
+      authtoken
+    }
+  });
