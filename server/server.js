@@ -1,13 +1,17 @@
 const express = require('express');
-const { readdirSync } = require('fs');
+
 const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+
 const connectDB = require('./config/db');
 const connectMQTT = require('./config/mqtt');
+
+const { readdirSync } = require('fs');
 // const product = require('./routes/product'); // Imports routes for the products
 // const auth = require('./routes/auth'); // Imports routes for the auth
 const app = express();
+const port = 8000;
 
 // Connect to database
 connectDB();
@@ -32,6 +36,6 @@ app.use(bodyParser.json({ limit: '10mb' }));
 // Routes 3
 readdirSync('./routes').map((r) => app.use('/api', require('./routes/' + r)));
 
-app.listen(8000, () => {
-  console.log('Server starting on port 8000');
+app.listen(port, () => {
+  console.log(`Server starting on port ${port}!`);
 });

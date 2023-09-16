@@ -3,17 +3,19 @@ const User = require('../models/User')
 
 exports.auth = async (req, res, next) => {
     try {
-        // Code
-        const token = req.header('authtoken')
+        //code
+        const token = req.headers["authtoken"]
         if (!token) {
-            return res.send('No Token, Authorization Denied!!!').status(401)
+            return res.status(401).send('No token')
         }
         const decoded = jwt.verify(token, 'jwtsecret')
         req.user = decoded.user
-        next()
+        
+        next();
     } catch (err) {
+        // err
         console.log(err)
-        res.status(500).send('Token Invalid!!!')
+        res.send('Token Invalid').status(500)
     }
 }
 

@@ -64,7 +64,7 @@ export default function Login() {
     login(tam)
       .then((res) => {
         console.log(res);
-        alert(res.data);
+        // alert(res.data);
         dispatch(
           loginRedux({
             name: res.data.payload.user.name,

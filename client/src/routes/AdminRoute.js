@@ -25,7 +25,7 @@ const AdminRoute = ({ children }) => {
     }
   }, [user]);
 
-  console.log("adminroute", user.user.role);
+  // console.log("adminroute", user.user.role);
 
   const text = "No Permission!!!"
 

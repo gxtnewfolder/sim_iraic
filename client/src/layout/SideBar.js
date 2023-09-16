@@ -35,7 +35,7 @@ const SideBar = () => {
         toggled={toggled}
         onBackdropClick={() => setToggled(false)}
         onBreakPoint={setBroken}
-        image="/assets/17361.jpg"
+        // image="/assets/17361.jpg"
         breakPoint="md"
         style={{ height: "100%" }}
 
@@ -60,7 +60,7 @@ const SideBar = () => {
                     alignItems="center"
                     ml="15px"
                   >
-                    <Typography>ROITAI APP</Typography>
+                    <Typography>SIM DETECTION</Typography>
                     <IconButton onClick={() => setisCollapsed(!isCollapsed)}>
                       <MenuOutlinedIcon />
                     </IconButton>
@@ -93,10 +93,12 @@ const SideBar = () => {
                     Table 
                   </MenuItem>
                 </Link>
-                <MenuItem icon={<BarChartOutlinedIcon />}>
-                  {" "}
-                  Line charts
-                </MenuItem>
+                <Link to={"/admin/viewchart"} className="menu-bars">
+                  <MenuItem icon={<TableViewIcon />}>
+                    {" "}
+                    Chart 
+                  </MenuItem>
+                </Link>
               </SubMenu>
 
               <SubMenu label="Manage" icon={<PeopleOutlinedIcon />}>

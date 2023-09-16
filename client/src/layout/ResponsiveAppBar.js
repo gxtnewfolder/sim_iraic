@@ -11,7 +11,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 
 import { Link } from "react-router-dom";
 
@@ -239,13 +238,12 @@ function ResponsiveAppBar() {
           {/* /Menu Right Full */}
 
           {/* User Menu */}
-          {user.user.length != 0 && (
+          {user.user.length !== 0 && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
-                    alt="Remy Sharp"
-                    src="https://obs.line-scdn.net/0hSo0b4ow9DEANGx4MvxpzFzVNADE-fRZJLy9HcSgYB3EgN0wVZipfIy8fW2wpIksVLXgUciEcWnZzKEoXMA/w1200"
+                    alt="SIM KMUTT"
                   />
                 </IconButton>
               </Tooltip>
@@ -269,7 +267,7 @@ function ResponsiveAppBar() {
                   <MenuItem
                     key={index}
                     onClick={
-                      setting.title == "Logout"
+                      setting.title === "Logout"
                         ? handleLogout
                         : handleCloseUserMenu
                     }
