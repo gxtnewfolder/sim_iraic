@@ -5,7 +5,7 @@ const HomePageAdmin = () => {
   return (
     <div>
       <h1>Home Page Admin</h1>
-      <img style={{width: 1000 + 'px'}} src={url} alt="SIM" />
+      <img style={{width: 750 + 'px'}} src={url} alt="SIM" />
     </div>
   )
 }

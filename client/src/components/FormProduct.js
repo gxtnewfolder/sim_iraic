@@ -69,7 +69,7 @@ const FormProduct = () => {
   return (
     <div>
       {/* HTML */}
-      FormData
+      {/* FormData
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
           <TextField
@@ -103,7 +103,7 @@ const FormProduct = () => {
           />
         </div>
         <Button variant="contained" type="submit">Submit</Button>
-      </form>
+      </form> */}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
