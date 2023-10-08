@@ -50,7 +50,7 @@ const FormEditProduct = () => {
         update(params.id, formWithImageData)
             .then(res => {
                 console.log(res)
-                navigate('/')
+                navigate('/admin/viewtable')
             })
             .catch((err) => console.log(err))
     }
